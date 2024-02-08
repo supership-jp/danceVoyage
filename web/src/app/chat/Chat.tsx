@@ -73,6 +73,7 @@ export const Chat = ({
   const [isFetchingChatMessages, setIsFetchingChatMessages] = useState(
     existingChatSessionId !== null
   );
+  const [isComposing, setIsComposing] = useState(false);
 
   // this is triggered every time the user switches which chat
   // session they are using
@@ -145,10 +146,10 @@ export const Chat = ({
           (persona) => persona.id === existingChatSessionPersonaId
         )
       : defaultSelectedPersonaId !== undefined
-        ? availablePersonas.find(
-            (persona) => persona.id === defaultSelectedPersonaId
-          )
-        : undefined
+      ? availablePersonas.find(
+          (persona) => persona.id === defaultSelectedPersonaId
+        )
+      : undefined
   );
   const livePersona = selectedPersona || availablePersonas[0];
 
@@ -689,10 +690,13 @@ export const Chat = ({
                       placeholder="Ask me anything..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
+                      onCompositionStart={() => setIsComposing(true)}
+                      onCompositionEnd={() => setIsComposing(false)}
                       onKeyDown={(event) => {
                         if (
                           event.key === "Enter" &&
                           !event.shiftKey &&
+                          !isComposing &&
                           message
                         ) {
                           onSubmit();
