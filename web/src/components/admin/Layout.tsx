@@ -122,7 +122,7 @@ export async function Layout({ children }: { children: React.ReactNode }) {
                     name: (
                       <div className="flex">
                         <RobotIcon size={18} />
-                        <div className="ml-1">Personas</div>
+                        <div className="ml-1">エージェント(演習用)</div>
                       </div>
                     ),
                     link: "/admin/personas",

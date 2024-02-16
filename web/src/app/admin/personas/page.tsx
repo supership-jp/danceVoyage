@@ -27,36 +27,33 @@ export default async function Page() {
       <AdminPageTitle icon={<RobotIcon size={32} />} title="Personas" />
 
       <Text className="mb-2">
-        Personas are a way to build custom search/question-answering experiences
-        for different use cases.
+        さまざまなユースケースに対応したカスタム検索/質問応答体験を構築できます。
       </Text>
-      <Text className="mt-2">They allow you to customize:</Text>
+      <Text className="mt-2">以下のカスタムが可能です:</Text>
       <div className="text-sm">
         <ul className="list-disc mt-2 ml-4">
-          <li>
-            The prompt used by your LLM of choice to respond to the user query
-          </li>
-          <li>The documents that are used as context</li>
+          <li>ユーザーの質問に回答するためのプロンプト</li>
+          <li>回答に利用するドキュメントの設定</li>
         </ul>
       </div>
 
       <div>
         <Divider />
 
-        <Title>Create a Persona</Title>
+        <Title>エージェントを作成する</Title>
         <Link
           href="/admin/personas/new"
           className="flex py-2 px-4 mt-2 border border-border h-fit cursor-pointer hover:bg-hover text-sm w-36"
         >
           <div className="mx-auto flex">
             <FiPlusSquare className="my-auto mr-2" />
-            New Persona
+            新規作成
           </div>
         </Link>
 
         <Divider />
 
-        <Title>Existing Personas</Title>
+        <Title>作成済みのエージェント</Title>
         <PersonasTable personas={personas} />
       </div>
     </div>

@@ -192,15 +192,15 @@ export function PersonaEditor({
 
               <TextFormField
                 name="name"
-                label="Name"
+                label="エージェント名"
                 disabled={isUpdate}
-                subtext="Users will be able to select this Persona based on this name."
+                subtext="`[自分の名前]両津bot`のようにエージェント名を設定してください。"
               />
 
               <TextFormField
                 name="description"
-                label="Description"
-                subtext="Provide a short descriptions which gives users a hint as to what they should use this Persona for."
+                label="説明"
+                subtext="エージェントの説明文"
               />
 
               <Divider />
@@ -209,10 +209,10 @@ export function PersonaEditor({
 
               <TextFormField
                 name="system_prompt"
-                label="System Prompt"
+                label="システムプロンプト"
                 isTextArea={true}
                 subtext={
-                  'Give general info about what the Persona is about. For example, "You are an assistant for On-Call engineers. Your goal is to read the provided context documents and give recommendations as to how to resolve the issue."'
+                  "システムプロンプトは、モデルの役割設定や対話のスタイルを設定するために使用されます。例えば、ユーザーがモデルにより友好的な応答を望む場合や、特定の知識レベルで回答を限定したい場合に、システムプロンプトを使用してこれらの条件を設定します。ex.「あなたはこち亀の両津勘吉として振る舞ってください。初心者にも分かりやすい言葉を使ってください。」"
                 }
                 onChange={(e) => {
                   setFieldValue("system_prompt", e.target.value);
@@ -227,10 +227,10 @@ export function PersonaEditor({
 
               <TextFormField
                 name="task_prompt"
-                label="Task Prompt"
+                label="プロンプト"
                 isTextArea={true}
                 subtext={
-                  'Give specific instructions as to what to do with the user query. For example, "Find any relevant sections from the provided documents that can help the user resolve their issue and explain how they are relevant."'
+                  "モデルに実行してほしい具体的なタスクや質問を定義します。これは、情報の検索、文章の生成、質問への回答、あるいは特定のテーマに沿った内容の作成など、ユーザーが求める特定のアクションに関連しています。モデルが期待されるタスクを理解し、それに応じて最も適切な応答を提供するための指示です。ex. 「両津勘吉としてユーザーの質問に回答してください。」"
                 }
                 onChange={(e) => {
                   setFieldValue("task_prompt", e.target.value);
@@ -246,22 +246,17 @@ export function PersonaEditor({
               {!values.disable_retrieval && (
                 <BooleanFormField
                   name="include_citations"
-                  label="Include Citations"
+                  label="引用符を付ける"
                   subtext={`
-                    If set, the response will include bracket citations ([1], [2], etc.) 
-                    for each document used by the LLM to help inform the response. This is 
-                    the same technique used by the default Personas. In general, we recommend 
-                    to leave this enabled in order to increase trust in the LLM answer.`}
+                  設定されている場合、LLMが応答を通知するのに使用した各ドキュメントに対して、括弧付きの引用符([1], [2]など)が応答に含まれます。一般的に、LLMの回答への信頼を高めるために、これを有効にしておくことをお勧めします。`}
                 />
               )}
 
               <BooleanFormField
                 name="disable_retrieval"
-                label="Disable Retrieval"
+                label="ドキュメント検索を無効にする"
                 subtext={`
-                If set, the Persona will not fetch any context documents to aid in the response. 
-                Instead, it will only use the supplied system and task prompts plus the user 
-                query in order to generate a response`}
+                設定されている場合、ドキュメントの検索(RAG)が無効になります。`}
                 onChange={(e) => {
                   setFieldValue("disable_retrieval", e.target.checked);
                   triggerFinalPromptUpdate(
@@ -272,7 +267,7 @@ export function PersonaEditor({
                 }}
               />
 
-              <Label>Final Prompt</Label>
+              <Label>プロンプトプレビュー</Label>
 
               {finalPrompt ? (
                 <pre className="text-sm mt-2 whitespace-pre-wrap">
@@ -286,9 +281,7 @@ export function PersonaEditor({
 
               {!values.disable_retrieval && (
                 <>
-                  <SectionHeader>
-                    What data should I have access to?
-                  </SectionHeader>
+                  <SectionHeader>どのデータにアクセスしますか？</SectionHeader>
 
                   <FieldArray
                     name="document_set_ids"
@@ -446,7 +439,7 @@ export function PersonaEditor({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  {isUpdate ? "Update!" : "Create!"}
+                  {isUpdate ? "更新!" : "作成!"}
                 </Button>
               </div>
             </div>
